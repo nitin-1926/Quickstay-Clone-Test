@@ -91,6 +91,27 @@ app.post('/signin',function(req,res){
       res.send("0");
 });
 
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+ 
+var upload = multer({ storage: storage })
+
+app.post('/uploadFile', upload.single('myFile'), (req, res, next) => {
+  const file = req.file
+  if (!file) {
+    const error = new Error('Please upload a file')
+    error.httpStatusCode = 400
+    return next(error)
+  }
+    res.send(file)
+})
+
 app.listen(3000,function()					//Server Running Confirmation
 {
       console.log("Running on port 3000");
