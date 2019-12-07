@@ -1,6 +1,7 @@
 var express = require('express')
 var path = require('path')
 var app = express()
+var alert = require('alert-node')
 
 var session = require('express-session')
 var nodemailer = require('nodemailer');
@@ -65,18 +66,29 @@ app.post('/adduser',function(req,res)
           res.redirect('/adduser')
         }
         else{
-            console.log(obj)
             user.create(obj,function(error,result){
                 if(error)
-                throw err;
+                    throw err;
             })
+            alert("Sign Up Succesfull");
             res.sendFile(path.join(__dirname + '/public/index.html'));  
         }
     });
 });
 
 app.post('/signin',function(req,res){
-
+    user.find({
+        email: req.body.email,
+        password: req.body.password
+      })
+      .then(data =>
+        {
+            res.send("1");
+        })
+      .catch(err => {
+        res.send(err)
+      })
+      res.send("0");
 });
 
 app.listen(3000,function()					//Server Running Confirmation
