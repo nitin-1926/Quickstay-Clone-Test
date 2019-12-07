@@ -122,18 +122,22 @@ var storage = multer.diskStorage({
    })
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
+    cb(null, req.body.projectName)
   }
 })
  
 var upload = multer({ storage: storage })
 
 app.post('/uploadFile', upload.single('myFile'), (req, res) => {
-  const file = req.file
+  console.log(req.body);
+  var file = req.file
   if (!file) {
     alert("Please Upload A File")
   }
-    console.log(file);
+  else{
+    alert("File Uploaded Succesfully");
+    res.sendFile(path.join(__dirname + '/public/upload.html'));
+  }
 })
 
 app.listen(3000,function()					//Server Running Confirmation
