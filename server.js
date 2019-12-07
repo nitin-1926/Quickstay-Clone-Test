@@ -56,7 +56,7 @@ app.post('/adduser',function(req,res)
     exists = 0;
     var obj = req.body;
     user.find({
-      username: req.body.username,
+      email: req.body.email,
     })
     .then(data =>
     {
@@ -70,9 +70,13 @@ app.post('/adduser',function(req,res)
                 if(error)
                 throw err;
             })
-            res.render('profile',{obj : req.session.data});
+            res.sendFile(path.join(__dirname + '/public/index.html'));  
         }
     });
+});
+
+app.post('/signin',function(req,res){
+
 });
 
 app.listen(3000,function()					//Server Running Confirmation
