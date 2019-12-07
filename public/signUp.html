@@ -17,11 +17,11 @@
     <div class="main"> 
       <img src="images/quickstay.jpeg" height="100px" width="100px"><br><br>
 
-      <form>
-        <input type="text" placeholder="Name" class="inputt" class="border border-light"><br><br>
-        <input type="text" placeholder="Phone" class="inputt" class="border border-light"><br><br>
-        <input type="text" placeholder="Email" class="inputt" class="border border-light"><br><br>
-        <input type="text" placeholder="Password" class="inputt" class="border border-light"><br><br>
+      <form method="POST" action="/adduser">
+        <input type="text" placeholder="Name" class="inputt" class="border border-light" name="fullname" required><br><br>
+        <input type="text" placeholder="Phone" class="inputt" class="border border-light" name="phone" required><br><br>
+        <input type="text" placeholder="Email" class="inputt" class="border border-light" name="email" required><br><br>
+        <input type="text" placeholder="Password" class="inputt" class="border border-light" name="password" required><br><br>
 
         <button class="btn btn-danger" style="border-radius: 3rem;">Sign Up</button>
       </form>
