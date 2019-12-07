@@ -1,3 +1,14 @@
 .main{
     margin-top: 15%;
 }
+.inputt{
+    height: 42px;
+    width: 26%;
+    border-radius: 3rem;
+    padding-left: 30px;
+    border: 1px solid grey;
+}
+.inputt:focus{
+    outline: 0;
+    border-color: blue;
+}
