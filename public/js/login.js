@@ -10,7 +10,7 @@ function login(){
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST','/signin');
-
+    xhr.setRequestHeader("Content-Type","application/json");
     xhr.onload = function(){
         console.log(xhr.responseText);
         var response = JSON.parse(xhr.responseText);

@@ -2,6 +2,7 @@ var express = require('express')
 var path = require('path')
 var app = express()
 var alert = require('alert-node')
+var fs = require('fs');
 
 var session = require('express-session')
 var nodemailer = require('nodemailer');
@@ -104,7 +105,21 @@ app.post('/signin',function(req,res){
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads')
+    var dir = 'uploads/' + req.session.fullname;
+    fs.exists(dir, function(exists){
+      if(exists){
+        cb(null,dir);
+      }
+      else{
+        fs.mkdir(dir, function(err) {
+          if(err) {
+            console.log('Error in folder creation');
+            cb(null,dir); 
+          }  
+          cb(null,dir);
+        })
+      }
+   })
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now())
@@ -113,15 +128,12 @@ var storage = multer.diskStorage({
  
 var upload = multer({ storage: storage })
 
-app.post('/uploadFile', upload.single('myFile'), (req, res, next) => {
+app.post('/uploadFile', upload.single('myFile'), (req, res) => {
   const file = req.file
   if (!file) {
-    const error = new Error('Please upload a file')
-    error.httpStatusCode = 400
-    return next(error)
+    alert("Please Upload A File")
   }
     console.log(file);
-    res.send(file)
 })
 
 app.listen(3000,function()					//Server Running Confirmation
