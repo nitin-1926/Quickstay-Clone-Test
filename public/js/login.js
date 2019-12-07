@@ -14,7 +14,7 @@ function login(){
         console.log(xhr.responseText);
         var response = JSON.parse(xhr.responseText);
         if(response == 1){
-            //console.log("Successfull Login");
+            window.location = "./upload.html"
         }
         else{
             alert("Username or Password Incorrect");
