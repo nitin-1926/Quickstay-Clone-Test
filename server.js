@@ -46,6 +46,11 @@ var userSchema = new mongoose.Schema({
 
 var user = mongoose.model('users', userSchema);
 
+app.get('/',function(req,res)
+  {
+      res.render('signin');
+  })
+
 app.get('/adduser',logger,function(req,res)
 {
     res.render('adduser',{obj : req.session.data , exists:exists});
@@ -77,18 +82,24 @@ app.post('/adduser',function(req,res)
 });
 
 app.post('/signin',function(req,res){
+  console.log(req.body)
     user.find({
         email: req.body.email,
         password: req.body.password
       })
       .then(data =>
         {
+          if(data.length > 0){
+            req.session.fullname = data[0].fullname
             res.send("1");
+          }
+          else{
+            res.send("-1");
+          }
         })
       .catch(err => {
         res.send(err)
       })
-      res.send("0");
 });
 
 var storage = multer.diskStorage({
@@ -109,6 +120,7 @@ app.post('/uploadFile', upload.single('myFile'), (req, res, next) => {
     error.httpStatusCode = 400
     return next(error)
   }
+    console.log(file);
     res.send(file)
 })
 

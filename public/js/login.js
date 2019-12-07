@@ -1,14 +1,15 @@
 function login(){
-    var username = document.getElementsByName("email");
-    var pass = document.getElementsByName("password");
+    var username = document.getElementById("email");
+    var pass = document.getElementById("pass");
 
     var obj = {
-        email: username,
-        password: pass
+        email: username.value,
+        password: pass.value
     }
+    var data = JSON.stringify(obj);
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST","/signin",true);
+    xhr.open('POST','/signin');
 
     xhr.onload = function(){
         console.log(xhr.responseText);
@@ -20,5 +21,5 @@ function login(){
             alert("Username or Password Incorrect");
         }
     };
-    xhr.send(obj);
+    xhr.send(data);
 }
