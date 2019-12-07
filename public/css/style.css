@@ -12,3 +12,16 @@
     outline: 0;
     border-color: blue;
 }
+button{
+    height: 42px;
+    width: 16%;
+    text-align: center;
+}
+#signupbtn{
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+#signupbtn:hover{
+    background-color: #2B4D71;
+    color: white;
+}
